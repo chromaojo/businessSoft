@@ -4,6 +4,8 @@ const mail = require('../config/mail');
 const path = require("path");
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
+const {allComplain, createComplain, allMyComplain}= require('../module/complaint')
+const {allAdPack, oneAdPack, createPack, addPlan} = require('../module/packages');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
 const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 999999);
@@ -51,7 +53,7 @@ route.get('/dashboard', (req, res) => {
 });
 
 
-// Dashboard route
+// Profile route
 route.get('/profile', UserLoggin, (req, res) => {
     const userData = req.app.get('userData');
     const userCookie = userData
@@ -75,7 +77,6 @@ route.get('/profile', UserLoggin, (req, res) => {
 });
 
 // To get the editing Page 
-
 route.get('/edit', UserLoggin, (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -88,7 +89,7 @@ route.get('/edit', UserLoggin, (req, res) => {
 
 
 // Tp Update New Account Details 
-route.use('/edit', require('./edit'));
+route.use('/edit', UserLoggin,  require('./edit'));
 
 
 
@@ -106,7 +107,7 @@ route.get('/users', UserLoggin, (req, res) => {
 
     db.query(sql, [userId], (err, results) => {
         if (err) {
-            console.log('Error retrieving shipments:', err);
+            console.log('Error retrieving users:', err);
             return res.status(500).send('Internal Server Error');
         }
         res.clearCookie('userAll');
@@ -173,52 +174,41 @@ route.post('/users/:userId/edit', UserLoggin, (req, res) => {
     });
 });
 
+// Complaint Section 
+route.get('/complaint', allMyComplain, );
 
-// To get single Query 
+route.post('/complaints/xXPpRyds', createComplain, (req , res)=>{
+    res.redirect('/admin/complaint')
+});
 
-route.get('/shipments/:userId', UserLoggin, (req, res) => {
-    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const userId = req.params.userId;
+
+// Package Section 
+
+route.get('/packages', allAdPack, );
+
+route.get('/packages/:pack_id', oneAdPack, );
+
+route.post('/createPack/', createPack, (req, res)=>{
     
+} );
 
-    const sql = `
-      SELECT * FROM royalreality.rrt_shipments WHERE user_id = ?;
-    `;
+route.post('/createPackage', addPlan, (req, res)=>{
+    res.redirect('/admin/packages')
+} );
 
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.log('Error retrieving shipments:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        res.clearCookie('userShip');
-        req.app.set('userShip', results)
-        // res.json(results);
-        const userShip = req.app.get('userShip');
-        console.log("The shipment history is", userShip)
-        res.render('shipment', { userData, userShip })
-    });
-});
+route.get('/create/package', (req, res)=>{
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    res.render('pack-create',{userData});
+})
 
+route.get('/create/packaxXzMwW/:pack_id', (req, res)=>{
+    const pack_id = req.params.pack_id
+    console.log('Pack Id is',pack_id)
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    res.render('pack-create1',{userData, pack_id});
+})
 
-
-// To get all the shipments for the admin
-
-route.get('/shipments', (req, res) => {
-    const sql = `
-        SELECT * 
-        FROM royalreality.rrt_shipments;
-    `;
-
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.log('Error fetching shipments:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-
-        res.json(results);
-    });
-});
 
 
 

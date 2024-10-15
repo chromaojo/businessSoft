@@ -1,0 +1,108 @@
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Packages</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/admin/packages#">Packages</a></li>
+          <li><a href="/admin/create/packaxXzMwW/<%= userPack.pack_id %>">Add Plan</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <section class="inner-page">
+    <a href="/admin/create/packaxXzMwW/<%= userPack.pack_id %>" class="btn btn-outline-primary mx-4 mb-4">Create New
+      Plan</a>
+    <div class="container p-4">
+      <article class="blog-post">
+        <div class="row">
+          <div class="col-md-7 col p-2">
+            <h2 class="blog-post-title text-capitalize">
+              <%= userPack.title %>
+            </h2>
+            <p class="blog-post-meta">Created Since : <a href="#">
+                <%= userPack.created_at %>
+              </a></p>
+            <hr>
+            <%- userPack.detail %>
+          </div>
+          <div class="col p-3">
+            <img src="/Pack/<%= userPack.picture %>" alt="Product Picture" class="bd-placeholder-img" width="100%">
+          </div>
+        </div>
+
+        <!-- <img src="" alt="Package Inage" width="100%"> -->
+
+      </article>
+    </div>
+  </section>
+
+  <div class="container py-3">
+    <main>
+      <div class="row mb-3 text-center">
+        <% product.forEach(trans=> { %>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-white bg-primary border-primary">
+                <h4 class="my-0 fw-normal"><small>
+                    <%= trans.title %>
+                  </small></h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$<%= trans.price %> <small
+                      class="text-muted fw-light">/year</small></h1>
+                <ul class="list-unstyled mt-3 mb-4 text-start">
+                  <li>Pages : <%= trans.pages_no %>
+                  </li>
+                  <li class="text-capitalize">Business email : <%= trans.email_no %>
+                  </li>
+                  <li class="text-capitalize">Users : <%= trans.users_no %>
+                  </li>
+                  <li class="text-capitalize">Social : <%= trans.social %>
+                  </li>
+                  <li class="text-capitalize">Help center support</li>
+
+                </ul>
+                <form action="/pay" method="POST">
+                  
+                  <input type="number" name="amount" value="<%= trans.price %>" hidden>
+                  <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Pay Now</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+
+      <h2 class="display-6 text-center mb-4 mt-4">Compare plans</h2>
+      <div class="row mb-3 text-center">
+        <% product.forEach(trans=> { %>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-white bg-primary border-primary">
+                <h4 class="my-0 fw-normal"><small>
+                    <%= trans.title %>
+                  </small></h4>
+              </div>
+              <div class="card-body text-capitalize">
+                <%= trans.detail %>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+
+
+
+
+    </main>
+  </div>
+
+</main><!-- End #main -->

@@ -35,7 +35,6 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 u.email,
                 u.role,
                 a.account_id,
-                a.total_spent,
                 a.account_balance,
                 a.phone_number,
                 a.surname,
@@ -51,7 +50,7 @@ route.post('/surname', UserLoggin, async (req, res) => {
                     if (error) {
 
                         return res.status(500).json({
-                            message: 'Internal Server Error'
+                            message: 'Internal Surname Error'
                         });
                     }
 
@@ -103,7 +102,6 @@ route.post('/username', UserLoggin, async (req, res) => {
                 u.email,
                 u.role,
                 a.account_id,
-                a.total_spent,
                 a.account_balance,
                 a.phone_number,
                 a.surname,
@@ -171,7 +169,6 @@ route.post('/other', UserLoggin, async (req, res) => {
                     u.email,
                     u.role,
                     a.account_id,
-                    a.total_spent,
                     a.account_balance,
                     a.phone_number,
                     a.surname,
@@ -239,7 +236,6 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                 u.email,
                 u.role,
                 a.account_id,
-                a.total_spent,
                 a.account_balance,
                 a.phone_number,
                 a.surname,
@@ -307,7 +303,6 @@ route.post('/address', UserLoggin, async (req, res) => {
                     u.email,
                     u.role,
                     a.account_id,
-                    a.total_spent,
                     a.account_balance,
                     a.phone_number,
                     a.surname,
@@ -357,6 +352,8 @@ route.post('/address', UserLoggin, async (req, res) => {
 route.post('/password', UserLoggin, async (req, res) => {
     //  
     const { old_password , new_password } = req.body;
+    
+
     if (password) {
         try {
             const userData = req.app.get('userData');

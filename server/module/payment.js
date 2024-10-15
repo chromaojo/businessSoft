@@ -18,9 +18,8 @@ route.post('/pay', async (req, res) => {
   const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
   const { amount } = req.body;
   const email = userCookie.email 
+  
 
-  
-  
   try {
     const response = await axios.post('https://api.paystack.co/transaction/initialize', 
       { 
@@ -58,19 +57,15 @@ route.get('/verify-payment/:reference', async (req, res) => {
     });
    
     const user_id = userCookie.user_id;
-    const description = userCookie.surname+ ' '+ userCookie.othername  +": Payment is sucessful ";
-    const payment_method = "Online Payment Via Portal"
+    const name = userCookie.surname+ ' '+ userCookie.othername;
+    const details = "E-payment of "+ name +" is Successful"
     const status = 'completed'
     const reference_number = reference
     
-    db.query('INSERT INTO royalreality.re_transaction SET ?', { user_id, reference_number, payment_method ,amount, status, description });
+    db.query('INSERT INTO royalreality.rrt_transacction SET ?', { user_id, reference_number, details ,amount, status, name });
 
     res.redirect('/user/transactions')
-    // res.status(200).json({
-    //   status: 'success',
-    //   data: response.data.data,
-    //   // Fill in the transaction table here 
-    // });
+    
   } catch (error) {
     res.status(500).json({
       status: 'error',

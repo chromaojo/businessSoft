@@ -93,24 +93,12 @@ route.post('/register', (req, res) => {
 
 
 // Login route
-route.post('/login', async (req, res) => {
+route.post('/login/account', async (req, res) => {
     const { email, password } = req.body;
 
     // Check if the user and account details with the provided email exists
     const sqlGetUserWithAccount = `
-       SELECT 
-         u.user_id,
-         u.password,
-         u.email,
-         u.role,
-         a.account_id,
-         a.account_balance,
-         a.phone_number,
-         a.surname,
-         a.othername,
-         a.username,
-         a.address,
-         a.email as account_email
+       SELECT *
        FROM royalreality.rrt_users u
        LEFT JOIN royalreality.rrt_accounts a ON u.user_id = a.user_id
        WHERE u.email = ?;
@@ -127,7 +115,7 @@ route.post('/login', async (req, res) => {
         if (result.length === 0) {
             return res.status(401).json({
                 message: 'Invalid Email or Password'
-            });
+            }); 
         }
         // Compare the provided password with the hashed password in the database
         const isPasswordValid = await bcrypt.compare(password, result[0].password);
@@ -145,7 +133,12 @@ route.post('/login', async (req, res) => {
          
         res.cookie('user', JSON.stringify({ ...userWithAccount }));
         // req.session.userId = result[0].user_id
-        res.redirect('/user/dashboard');
+        
+        if (userWithAccount.role === 'admin') {
+            return res.redirect('/admin/dashboard');
+         } else {
+            return res.redirect('/user/dashboard');
+         }
     });
 });
 
@@ -156,12 +149,13 @@ route.get('/logout', (req, res) => {
 
     req.session.destroy((err) => {
         delete userData
+        res.clearCookie('userData');
         res.clearCookie('user');
         if (err) {
             console.error(err);
             res.status(500).send('Error logging out');
         } else {
-            res.redirect('/login');
+            res.redirect('/');
         }
     });
 });
@@ -169,7 +163,7 @@ route.get('/logout', (req, res) => {
 
 
 
-
+route.use('', UserLoggin, require('../module/payment'));
 
 
 

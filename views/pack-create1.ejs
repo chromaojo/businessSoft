@@ -1,0 +1,64 @@
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Product Grades</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/admin/packages#">Packages</a></li>
+          <li>Details</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <section class="inner-page">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Create New Plan</h4>
+
+          <!-- No Labels Form -->
+          <form class="row g-3 p-3" method="POST" action="/admin/createPackage">
+            <div class="col-md-12"> <b>Title</b>
+              <input type="text" name="title" class="form-control" placeholder="Package Title">
+            </div>
+            <div class="col-md-6"> <b>Number of Pages</b>
+              <input type="text" name="pages_no" class="form-control" placeholder="Pages Available">
+            </div>
+            <div class="col-md-6"> <b>Social Media</b>
+              <input type="text" name="social" class="form-control" placeholder="Social Media Integration">
+            </div>
+            <input type="text" class="form-control" hidden name="pack_id" value="<%= pack_id %>">
+
+            <div class="col-md-6"><b>Business Emails</b>
+              <input type="text" name="email_no" class="form-control" placeholder="Business Email">
+            </div>
+            <div class="col-md-6"> <b>Number Of Users</b>
+              <input type="text" name="users_no" class="form-control" placeholder="Number of Users">
+            </div>
+            <div class="col-md-6"> <b>Price</b>
+              <input type="number" name="price" class="form-control" placeholder="Package Price">
+            </div>
+            <div class="col-md-12"> <b>Extra Details</b>
+              <textarea name="detail" id="" class="form-control"></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form><!-- End No Labels Form -->
+
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+</main><!-- End #main -->

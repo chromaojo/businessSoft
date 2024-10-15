@@ -1,0 +1,51 @@
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Packages/Products</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/admin/packages#">Packages</a></li>
+          <li>New Product</li>
+        </ol>
+      </div>
+
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <section class="inner-page">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Create New Product</h5>
+
+          <!-- No Labels Form -->
+          <form class="row g-3" method="POST" action="/admin/createPack" enctype="multipart/form-data">
+            <div class="col-md-12">
+              <input type="text" class="form-control" placeholder="Package Title " name="title">
+            </div>
+            <div class="col-12">
+              <textarea class="form-control" name="detail" id="" placeholder="Detail Section "></textarea>
+            </div>
+            <div class="col-md-12">
+              <input type="file" accept=".jpeg, .png, .jpg" name="pixz" id="pixz" class="form-control" placeholder="picture">
+            </div>
+ 
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form><!-- End No Labels Form -->
+
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+</main><!-- End #main -->

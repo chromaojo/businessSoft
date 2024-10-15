@@ -8,7 +8,6 @@ const AvoidIndex = (req, res, next)=>{
         
         return next();
        
-        
     } else{
          if (userCookie.role == 'admin') {
             return res.redirect('/admin/dashboard');

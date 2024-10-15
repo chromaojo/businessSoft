@@ -1,12 +1,25 @@
-<div class="container-fluid register d-flex">
-    <% let counter = 1; %>
-    <div class="container" id="user">
-        <div class="row" data-aos="fade-up">
-            <div class="col-md-2"></div>
-            <div class="col-md-9 p-5 ">
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><b>Users</b></h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Users</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <div class="container p-3" id="user">
+            <% let counter=1; %>
                 <!-- Add A Carousel for the form  -->
-                <h1 class="mb-5 text-center"> <b>Users Details</b></h1>
-                <h3 class="mb-4 text-center"><span>Every User's Details </span> </h3>
+                
                 <table class="table datatable">
                     <thead>
                         <th>S/N</th>
@@ -17,8 +30,8 @@
                     </thead>
                     <tbody>
                         <% userAll.forEach(trans=> { %>
-                            <tr> 
-                                <td> 
+                            <tr>
+                                <td>
                                     <%= counter++ %>
                                 </td>
                                 <td>
@@ -27,9 +40,9 @@
                                     </a>
                                 </td>
                                 <td>
-                                   <a href="">
-                                    <%= trans.role %>
-                                   </a>
+                                    <a href="">
+                                        <%= trans.role %>
+                                    </a>
                                 </td>
                                 <td>
                                     <a href="">
@@ -41,13 +54,10 @@
                                 </td>
                             </tr>
 
-                        <% }) %>
+                            <% }) %>
                     </tbody>
-
-
                 </table>
-            </div>
         </div>
+    </section>
 
-    </div>
-</div>
+</main><!-- End #main -->

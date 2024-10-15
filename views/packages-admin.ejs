@@ -1,0 +1,46 @@
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Package </h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+
+          <li>Packages</li>
+          <li><a href="/admin/create/package">Create New</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <section class="inner-page">
+    <div class="container" id="packages">
+      <div class="row">
+        <% userPack.forEach(trans=> { %>
+          <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-success">Business Solution</strong>
+                <h3 class="mb-0 text-capitalize">
+                  <%= trans.title %>
+                </h3>
+                <!-- <p class="mb-auto"><%= trans.detail %></p> -->
+                <a href="/admin/packages/<%= trans.pack_id %>" class="stretched-link">Continue reading</a>
+              </div>
+              <div class="col-auto d-none d-lg-block">
+                <img src="/Pack/<%= trans.picture %>" alt="" class="bd-placeholder-img" width="235" height="250">
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+    </div>
+
+
+  </section>
+
+</main><!-- End #main -->
