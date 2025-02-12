@@ -23,7 +23,9 @@ app.use('', require('./server/routes/pages'));
 app.use('/user', UserLoggin, require('./server/routes/customer'));
 app.use('/admin', AdminRoleBased, require('./server/routes/admin'));
 
-
+app.route('*', (req, res)=>{
+    res.render('page-error')
+})
 
 app.listen(port, ()=>{
     console.log(`App Running on ${port}`);

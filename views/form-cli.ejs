@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to a CSS file if needed -->
+</head>
+<body>
+    <div class="container">
+        <h1><%= form.form_name %></h1>
+        <p><%= form.description %></p>
+        <form action="/submit-form/<%= form.form_id %>" method="POST">
+            <% formData.forEach(field => { %>
+                <div class="form-group">
+                    <label for="field-<%= field.field_id %>"><%= field.field_name %></label>
+                    
+                    <% if (field.field_type === 'text' || field.field_type === 'number' || field.field_type === 'email') { %>
+                        <input
+                            type="<%= field.field_type %>"
+                            id="field-<%= field.field_id %>"
+                            name="field_<%= field.field_id %>"
+                            <%= field.is_required ? 'required' : '' %>
+                        />
+                    <% } else if (field.field_type === 'textarea') { %>
+                        <textarea
+                            id="field-<%= field.field_id %>"
+                            name="field_<%= field.field_id %>"
+                            <%= field.is_required ? 'required' : '' %>
+                        ></textarea>
+                    <% } else if (field.field_type === 'select') { %>
+                        <select
+                            id="field-<%= field.field_id %>"
+                            name="field_<%= field.field_id %>"
+                            <%= field.is_required ? 'required' : '' %>
+                        >
+                            <% JSON.parse(field.field_options || '[]').forEach(option => { %>
+                                <option value="<%= option %>"><%= option %></option>
+                            <% }); %>
+                        </select>
+                    <% } else if (field.field_type === 'checkbox' || field.field_type === 'radio') { %>
+                        <% JSON.parse(field.field_options || '[]').forEach(option => { %>
+                            <label>
+                                <input
+                                    type="<%= field.field_type %>"
+                                    id="field-<%= field.field_id %>-<%= option %>"
+                                    name="field_<%= field.field_id %><%= field.field_type === 'checkbox' ? '[]' : '' %>"
+                                    value="<%= option %>"
+                                    <%= field.is_required ? 'required' : '' %>
+                                />
+                                <%= option %>
+                            </label>
+                        <% }); %>
+                    <% } %>
+                </div>
+            <% }); %>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

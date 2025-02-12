@@ -49,7 +49,7 @@ route.get('/createUser', (req, res) => {
             return res.status(500).send('Internal Server Error');
         }
         console.log('Users Created Successfully');
-        
+
     });
     db.query(sqlAccounts, (errAccounts) => {
         if (errAccounts) {
@@ -59,7 +59,7 @@ route.get('/createUser', (req, res) => {
         console.log('Accounts Created Successfully');
         res.send('Tables Created Successfully');
     });
-    
+
 });
 
 
@@ -67,7 +67,7 @@ route.get('/createUser', (req, res) => {
 route.get('/createPackage', (req, res) => {
 
     const sqlPackag = `
-        CREATE TABLE IF NOT EXISTS royalreality.rrt_package (
+        CREATE TABLE IF NOT EXISTS rrt_package (
 
         id INT PRIMARY KEY AUTO_INCREMENT,
         pack_id INT UNIQUE,
@@ -79,7 +79,7 @@ route.get('/createPackage', (req, res) => {
         `;
 
     const sqlPackage = `
-        CREATE TABLE IF NOT EXISTS royalreality.rrt_packages (
+        CREATE TABLE IF NOT EXISTS rrt_packages (
 
         id INT PRIMARY KEY AUTO_INCREMENT,
         pack_id INT,
@@ -110,7 +110,7 @@ route.get('/createPackage', (req, res) => {
         }
         console.log('Transaction Created Successfully');
     });
-   
+
     res.send('Packages & Package Item Tables Created Successfully');
 });
 
@@ -119,7 +119,7 @@ route.get('/createSubscription', (req, res) => {
 
 
     const sqlTransaction = `
-        CREATE TABLE IF NOT EXISTS royalreality.rrt_transacction (
+        CREATE TABLE IF NOT EXISTS rrt_transacction (
 
         id INT PRIMARY KEY AUTO_INCREMENT,
         transaction_id VARCHAR(255),
@@ -135,7 +135,7 @@ route.get('/createSubscription', (req, res) => {
         );
         `;
 
-        const sqlSub = `
+    const sqlSub = `
         CREATE TABLE IF NOT EXISTS royalreality.rrt_subscription (
         id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
         pack_id INT UNIQUE,
@@ -171,14 +171,14 @@ route.get('/createSubscription', (req, res) => {
         }
         console.log('Saved Table Created Successfully');
     });
-    res.send('Packages & Transactions Tables Created Successfully');
+    res.send('<h2> Packages & Transactions Tables Created Successfully </h2>');
 });
 
 route.get('/createComplain', (req, res) => {
 
 
     const sqlComplaint = `
-    CREATE TABLE IF NOT EXISTS royalreality.rrt_complaint (
+    CREATE TABLE IF NOT EXISTS rrt_complaint (
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
@@ -194,9 +194,6 @@ route.get('/createComplain', (req, res) => {
   `;
 
 
-
-
-
     db.query(sqlComplaint, (errRoles) => {
         if (errRoles) {
             console.log('Error creating roles table:', errRoles);
@@ -206,9 +203,118 @@ route.get('/createComplain', (req, res) => {
 
     });
 
-    res.send('Complaint Table Created Successfully');
+    res.send('<h1> Complaint Table Created Successfully </h1>');
+});
+
+route.get('/createForm', (req, res) => {
+
+
+    const form = `  CREATE TABLE rrt_forms (
+    form_id INT AUTO_INCREMENT PRIMARY KEY,
+    form_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    user_id VARCHAR(255),
+    createdby VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);`
+
+    const fields = `CREATE TABLE rrt_fields (
+    field_id INT AUTO_INCREMENT PRIMARY KEY,
+    form_id INT NOT NULL,
+    field_name VARCHAR(255) NOT NULL,
+    field_type ENUM('text', 'number', 'email', 'textarea', 'select', 'checkbox', 'radio') NOT NULL,
+    field_options TEXT,
+    is_required BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (form_id) REFERENCES rrt_forms(form_id) ON DELETE CASCADE
+);`
+
+    const responses = `CREATE TABLE rrt_responses (
+    response_id INT AUTO_INCREMENT PRIMARY KEY,
+    form_id INT NOT NULL,
+    client_ip VARCHAR(45),
+    submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (form_id) REFERENCES rrt_forms(form_id) ON DELETE CASCADE
+);`
+
+    const respVaalvues = `CREATE TABLE rrt_response_Values (
+    response_value_id INT AUTO_INCREMENT PRIMARY KEY,
+    response_id INT NOT NULL,
+    field_id INT NOT NULL,
+    field_value TEXT NOT NULL,
+    question_value TEXT,
+    FOREIGN KEY (response_id) REFERENCES Responses(response_id) ON DELETE CASCADE,
+    FOREIGN KEY (field_id) REFERENCES rrt_fields(field_id) ON DELETE CASCADE
+);`
+
+
+
+    db.query(form, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Form Table Created Successfully');
+
+    });
+    db.query(fields, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Form Fields Created Successfully');
+
+    });
+    db.query(responses, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Response Table Created Successfully');
+
+    });
+    db.query(respVaalvues, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Responcse Values Created Successfully');
+
+    });
+
+    res.send('<h2> Form Responses Table Created Successfully </h2>');
+});
+
+route.get('/createBooking', (req, res) => {
+
+
+    const form = `CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    event_date DATE NOT NULL,
+    event_location VARCHAR(255) NOT NULL,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);`
+
+
+
+
+    db.query(form, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Booking Table Created Successfully');
+
+    });
+
+
+    res.send('<h2> Booking Table Created Successfully </h2>');
 });
 
 
 
-module.exports =route;
+module.exports = route;

@@ -4,10 +4,13 @@ const path = require("path");
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const random = Math.floor(Math.random() * 99999);
-const rando = Math.floor(Math.random() * 99999);
+const rando = Math.floor(Math.random() * 999999);
 const rand = rando + "RrT" + random;
 const session = require('express-session');
 const { AvoidIndex, UserLoggin} = require('../auth/auth');
+const responseController = require('../module/responsenValuez')
+const formController = require('../module/formField')
+
 
 
 
@@ -144,6 +147,24 @@ route.post('/login/account', async (req, res) => {
 
 
 
+
+
+// Form and Data To input 
+
+route.get('/ourform', formController.getFrontFormData )
+
+
+route.get('/fill-form/:form_id', formController.getFieldsByFormId);
+route.post('/responses', responseController.createResponse);
+route.post('/responses/values', responseController.addResponseValues);
+
+
+
+
+// Payment (Pay Stack Gateway)
+
+route.use('', UserLoggin, require('../module/payment'));
+
 // Logout route
 route.get('/logout', (req, res) => {
 
@@ -162,10 +183,5 @@ route.get('/logout', (req, res) => {
 
 
 
-
-route.use('', UserLoggin, require('../module/payment'));
-
-
-
-
+ 
 module.exports = route;

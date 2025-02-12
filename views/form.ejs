@@ -1,0 +1,143 @@
+<main id="main">
+
+  <section class="section p-4" id="forms">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title p-3">Survey / Lead Forms 
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+                Create New Form
+              </button>
+            </h5>
+            <p class="p-2">
+              A well-designed lead or survey form is a powerful tool to connect with your audience, understand their needs, and gather essential information to drive your business forward. By offering a simple, user-friendly form, you provide your customers or leads with an opportunity to share valuable insights, preferences, or feedback.
+            </p>
+
+            <!-- Basic Modal -->
+         
+            <div class="modal fade" id="basicModal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Create A Survey or Generate Lead</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="card p-4"> 
+                      <form action="/<%= userData.role %>/forms/KxTtLvXx" method="post" class="php-email-form">
+                        <div class="row gy-4">
+                          <div class="col-md-12">
+                            <label for="name">Form Title</label>
+                            <input type="text" name="form_name" class="form-control" placeholder="Enter A Title">
+                          </div>
+                          <div class="col-md-12">
+                            <label for="name">Form Description</label>
+                            <input type="text" name="description" class="form-control" placeholder="Enter A Description For The Form">
+                          </dields
+
+                          <div class="col-md-12">
+                            <label for="name">Created By</label>
+                            <input type="text" name="createdby" class="form-control"
+                              value="<%= userData.surname %> <%= userData.othername %>" required readonly>
+                          </div>             
+                        </div>
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send</button></form>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Basic Modal-->
+
+          </div>
+        </div>
+      </div>
+    </div> <br>
+    <hr> <br>
+
+
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> Survey / Lead Section</h5>
+            <% if (forms=='' ) { %>
+              <br> <br>
+              <h3 class="m-5 text-center mb-5">There is no Form/ Lead at the moment</h3>
+
+              <% } else{%>
+                <p class="text-capitalize">Every Form / Lead Detail is made available here</p>
+
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                  <thead>
+                    <% let counter=1 %>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Created By</th>
+                        <th scope="col">Created At</th>
+                        
+                        <th scope="col">Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% forms.forEach(trans=> { %>
+                      <tr>
+                        <th scope="row">
+                          <%= counter++ %>
+                        </th>
+                        <td>
+                          <a href="/admin/fields/<%= trans.form_id %>" >
+                             <%= trans.form_name %>
+                          </a>
+                         
+                        </td>
+                        <td>
+                          <a href="/admin/fields/<%= trans.form_id %>" >
+                            <%= trans.description %>
+                         </a>
+                         
+                        </td>
+                        <td>
+                          <%= trans.createdby %>
+                        </td>
+                        <td>
+                          <%= trans.created_at %>
+                        </td>
+                       
+                        <td>
+                          <% if ( trans.status==='pending' ) { %>
+                            <span class="badge bg-warning">Processing...</span>
+                            <% } else{ %>
+                              <span class="badge bg-success">Resolved</span>
+                              <% } %>
+                        </td>
+                      </tr>
+
+                      <% }) %>
+
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+                <% } %>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

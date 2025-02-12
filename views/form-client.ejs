@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Form Filling - Royal Reality Technology</title>
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.jpg" rel="apple-touch-icon">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+
+  <main class="form-signin">
+    <form> <br>
+      <h1 class="h3 mb-3 fw-normal">
+        <%= form.form_name %>
+      </h1>
+      <i>
+        <%= form.description %>
+      </i>
+      <p>Kindly Fill The Form Carefully</p>
+
+
+      <% formData.forEach(field=> { %>
+
+        <div class="form-floating">
+          
+        
+          <% if (field.field_type==='text' || field.field_type==='number' || field.field_type==='email' ) { %>
+            <input type="<%= field.field_type %>" name="field_<%= field.field_id %>" class="form-control" id="floatingInput" <%=field.is_required ? 'required' : '' %>>
+
+            <% } else if (field.field_type==='textarea' ) { %>
+              <textarea class="form-control" id="field-<%= field.field_id %>" name="field_<%= field.field_id %>"
+                <%=field.is_required ? 'required' : '' %>
+                ></textarea>
+              <% } else if (field.field_type==='select' ) { %>
+                <select id="field-<%= field.field_id %>" class="form-control" name="field_<%= field.field_id %>"
+                  <%=field.is_required ? 'required' : '' %>
+                  >
+                  <% JSON.parse(field.field_options || '[]' ).forEach(option=> { %>
+                    <option value="<%= option %>">
+                      <%= option %>
+                    </option>
+                    <% }); %>
+                </select>
+                <% } else if (field.field_type==='checkbox' || field.field_type==='radio' ) { %>
+                  <% JSON.parse(field.field_options || '[]' ).forEach(option=> { %>
+                    <label>
+                      <input type="<%= field.field_type %>" id="field-<%= field.field_id %>-<%= option %>"
+                        name="field_<%= field.field_id %><%= field.field_type === 'checkbox' ? '[]' : '' %>"
+                       value="<%= option %>" <%=field.is_required ? 'required' : '' %> />
+                      <%= option %>
+                    </label>
+                    <% }); %>
+                      <% } %>
+
+                      <label for="floatingInput">
+                        <%= field.field_name %>
+                      </label> <br>
+        </div>
+        <% }); %>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+    </form>
+  </main>
+
+</body>
+
+</html>

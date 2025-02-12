@@ -16,7 +16,7 @@ const allComplain = (req, res) => {
     const userData = userCookie
 
     if (userCookie) {
-        const sql = `SELECT * FROM royalreality.rrt_complaint ORDER BY id DESC;`;
+        const sql = `SELECT * FROM rrt_complaint ORDER BY id DESC;`;
         db.query(sql, (err, results) => {
             if (err) {
                 const error = 'Complain loading issues. Kindly go back to refresh'

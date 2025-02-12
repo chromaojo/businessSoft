@@ -7,14 +7,13 @@ const bcrypt = require('bcryptjs');
 const {allComplain, createComplain, allMyComplain}= require('../module/complaint')
 const {allAdPack, oneAdPack, createPack, addPlan} = require('../module/packages');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
-const random = Math.floor(Math.random() * 99999);
+const random = Math.floor(Math.random() * 999999);
 const rando = Math.floor(Math.random() * 999999);
-const rand = rando + "RrT" + random;
+const rand = rando + "RXGrT" + random;
 const cookieParser = require('cookie-parser');
+const formController = require('../module/formField');
+const responseController = require('../module/responsenValuez');
 const session = require('express-session');
-
-
-
 
 
 route.use(
@@ -31,13 +30,15 @@ route.use(express.json())
 
 // Dashboard route
 route.get('/dashboard', (req, res) => {
-    const userData = req.app.get('userData');
+
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userCookie = userData
+    console.log('The Data is ', userCookie)
     // const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     if (!userCookie) {
         res.redirect('/logout');
     } else {
-        const user = db.query('SELECT * FROM royalreality.rrt_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT *  FROM royalreality.rrt_users WHERE email = ?', [userData.email], async (error, result) => {
 
             console.log('This is the dashboard Details : ', userData);
             if (error) {
@@ -55,17 +56,19 @@ route.get('/dashboard', (req, res) => {
 
 // Profile route
 route.get('/profile', UserLoggin, (req, res) => {
-    const userData = req.app.get('userData');
+    
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    
     const userCookie = userData
-    console.log('Here is my Dashboard Data', userCookie);
+   
     if (!userCookie) {
         res.redirect('/login');
     } else {
-        const user = db.query('SELECT * FROM royalreality.rrt_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT *  FROM royalreality.rrt_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {
-                console.log(" Login Error :", error);
+                
                 return res.redirect('/user/logout');
             }
             if (result) {
@@ -102,19 +105,18 @@ route.get('/users', UserLoggin, (req, res) => {
     
 
     const sql = `
-      SELECT * FROM royalreality.rrt_users;
+      SELECT *  FROM royalreality.rrt_users;
     `;
 
     db.query(sql, [userId], (err, results) => {
         if (err) {
             console.log('Error retrieving users:', err);
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).send('<h2>Internal Server Error</h2>');
         }
         res.clearCookie('userAll');
         req.app.set('userAll', results)
         // res.json(results);
         const userAll = req.app.get('userAll');
-        console.log("All Admin user detail is", userAll)
         res.render('user', { userData, userAll })
     });
 });
@@ -126,9 +128,9 @@ route.get('/users/:userId', UserLoggin, (req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userId = req.params.userId;
 
-    // Retrieve user data from the database based on userId
+    // Retrieve user data  FROM the database based on userId
     const sql = `
-      SELECT * FROM royalreality.rrt_users WHERE user_id = ?;
+      SELECT *  FROM royalreality.rrt_users WHERE user_id = ?;
     `;
 
     db.query(sql, [userId], (err, results) => {
@@ -146,8 +148,7 @@ route.get('/users/:userId', UserLoggin, (req, res) => {
         // res.json(results);
         
         const userO = req.cookies.userOne ? JSON.parse(req.cookies.userOne) : null;
-        const userOne = userO[0]
-        console.log(' UserOne details is', userOne)
+        const userOne = userO["0"];
         res.render('user-edit', { userData, userOne })
     });
 });
@@ -204,10 +205,28 @@ route.get('/create/package', (req, res)=>{
 
 route.get('/create/packaxXzMwW/:pack_id', (req, res)=>{
     const pack_id = req.params.pack_id
-    console.log('Pack Id is',pack_id)
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     res.render('pack-create1',{userData, pack_id});
 })
+
+
+// ?Form Routes 
+
+// Form and Fields Routes
+route.post('/forms/KxTtLvXx', formController.createForm);
+route.post('/fieldz/ZxXTyGWPLRfD/:form_id', formController.createField);
+route.get('/all-forms', formController.getForms);
+route.get('/fields/:form_id', formController.getFieldsByFormId);
+route.put('/forms/:form_id', formController.updateForm);
+route.get('/forms/del/:form_id', formController.deleteForm);
+
+// Responses and Response Values Routes
+
+route.post('/responses', responseController.createResponse);
+route.post('/responses/values', responseController.addResponseValues);
+route.get('/responses/:form_id', responseController.getResponsesByFormId);
+route.get('/responses/values/:response_id', responseController.getResponseValuesByResponseId);
+route.delete('/responses/:response_id', responseController.deleteResponse);
 
 
 
