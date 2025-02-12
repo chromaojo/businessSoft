@@ -1,90 +1,345 @@
-<div class="container-fluid profileP">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-9">
-      <section id="services" class="services">
-        <div class="container">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Profile Page</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center justify-content-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parameter</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Information</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                    Completion</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Surname </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.surname %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60"
+                              aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Other Name(s) </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.othername %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60"
+                              aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Accound ID </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.account_id %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60"
+                              aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Balance</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.account_balance %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <div>
+                          <% if (userData.account_balance) { %>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-info" role="progressbar" 
+                                   aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                              </div>
+                          </div>
+                        <% } else { %>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-danger" role="progressbar" 
+                                 aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                            </div>
+                        </div> 
+                        <% } %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Phone Number </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.phone_number ? userData.phone_number : 'Empty' %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <% if (userData.phone_number) { %>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="80"
+                              aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                            </div>
+                          </div>
+                          <% } else { %>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="10"
+                                aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                              </div>
+                            </div>
+                            <% } %>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Whatsapp </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.whatsapp ? userData.whatsapp : "Empty" %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <div>
+                          <% if (userData.whatsapp) { %>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-info" role="progressbar" 
+                                   aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                              </div>
+                          </div>
+                        <% } else { %>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-danger" role="progressbar" 
+                                 aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                            </div>
+                        </div> 
+                        <% } %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <button class="btn btn-link text-secondary mb-0">
+                        <i class="fa fa-ellipsis-v text-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg"
+                            class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                        </div>
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">Username </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-bold mb-0">
+                        <%= userData.username %>
+                      </p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                        <% if (userData.username) { %>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="80"
+                              aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                            </div>
+                          </div>
+                          <% } else { %>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="10"
+                                aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                              </div>
+                            </div>
+                            <% } %>
 
-          <div class="section-title">
-            <h2>Profile</h2>
-            <div class="row">
-              <div class="col-md-6 icon-box" data-aos="fade-up">
-                <p>Ensure the information you input here is confirmed, valid, correct and well updated. <br>This would help us to serve you
-                  better</p>
-              </div>
-              <div class="col icon-box" data-aos="fade-up">
-                <img src="/assets/img/profile-img.png" alt="" class="img-fluid rounded-circle">
-              </div>
-              
-            </div>
-            
+                      </div>
           </div>
-
-          <div class="row">
-            
-            <div class="col-md-6 icon-box" data-aos="fade-up">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-briefcase"></i></div>
-              <h4 class="title"><a href="">Email Address</a></h4>
-              <p class="description">
-                <%= userData.email %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-card-checklist"></i></div>
-              <h4 class="title"><a href="">Account Id</a></h4>
-              <p class="description">
-                <%= userData.account_id %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-telephone"></i></div>
-              <h4 class="title"><a href="/user/edit">Phone Number</a></h4>
-              <p class="description">
-                <%= userData.phone_number %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-book"></i></div>
-              <h4 class="title"><a href="/user/edit">Name in Full</a></h4>
-              <p class="description">
-                <%= userData.surname %>
-                  <%= userData.othername %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-brightness-high"></i></div>
-              <h4 class="title"><a href="/user/edit">Organization / Username</a></h4>
-              <p class="description">
-                <%= userData.username %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-calendar"></i></div>
-              <h4 class="title"><a href="/user/edit">Address </a></h4>
-              <p class="description">
+          </td>
+          <td class="align-middle">
+            <button class="btn btn-link text-secondary mb-0">
+              <i class="fa fa-ellipsis-v text-xs"></i>
+            </button>
+          </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex px-2">
+                <div>
+                  <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2"
+                    alt="spotify">
+                </div>
+                <div class="my-auto">
+                  <h6 class="mb-0 text-sm">Address </h6>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="text-sm font-weight-bold mb-0">
                 <%= userData.address %>
               </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-calendar4-week"></i></div>
-              <h4 class="title"><a href="/user/edit">Registered</a></h4>
-              <p class="description">
-                <%= userData.role %>
-              </p>
-            </div>
-            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-              <div class="icon"><a href="/user/edit"> <i class="bi bi-key"></i></div>
-              <h4 class="title"><a href="">Password</a></h4>
-              <p class="description">
-                XXXXXXXXXX
-              </p>
-            </div>
+            </td>
+            <td class="align-middle text-center">
+              <div class="d-flex align-items-center justify-content-center">
+                <!-- <span class="me-2 text-xs font-weight-bold">60%</span> -->
+                <div>
+                  <% if (userData.address==null) { %>
+                    <div class="progress">
+                      <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="10"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                      </div>
+                    </div>
+                    <% } else { %>
+                      <div class="progress">
+                        <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="70"
+                          aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                        </div>
+                      </div>
+                      <% } %>
 
-          </div>
+                </div>
+              </div>
+            </td>
+            <td class="align-middle">
+              <button class="btn btn-link text-secondary mb-0">
+                <i class="fa fa-ellipsis-v text-xs"></i>
+              </button>
+            </td>
+          </tr>
 
+          </tbody>
+          </table>
         </div>
-      </section><!-- End Services Section -->
-
+      </div>
     </div>
   </div>
 </div>
